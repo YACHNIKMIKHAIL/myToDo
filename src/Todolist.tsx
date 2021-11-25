@@ -26,6 +26,7 @@ export function Todolist({addTask, changeFilter, deleteTask, ...props}: Todolist
     const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             addTask(title)
+            setTitle('')
         }
     }
 
