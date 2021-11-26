@@ -8,7 +8,6 @@ type TodolistPropsType = {
     tasks: Array<TaskType>
     deleteTask: (taskID: string) => void
     changeFilter: (filter: FilterType) => void
-    // test: (id: number, isDone: boolean) => void
     addTask: (title: string) => void
 }
 
@@ -39,9 +38,6 @@ export function Todolist({addTask, changeFilter, deleteTask, ...props}: Todolist
                 <li key={t.id}>
                     <input type="checkbox"
                            checked={t.isDone}
-                        // onClick={(e) => {
-                        //     props.test(t.id, e.currentTarget.checked)
-                        // }}
                     />
                     <span>{t.title}</span>
                     <button onClick={onClickHandler}>x</button>

@@ -26,11 +26,6 @@ function App() {
         {id: v1(), title: "Star Wars", isDone: false},
     ]
 
-    // const test = (id: number, isDone: boolean) => {
-
-    //     let ttt = tasks.map((el) => el.id === id ? {...el, isDone} : el)
-    //     setTasks(ttt)
-    // }
     let [tasks, setTasks] = useState<Array<TaskType>>(state)
 
     let [filter, setFilter] = useState<FilterType>('all')
@@ -55,7 +50,6 @@ function App() {
                       tasks={tasksForRender}
                       deleteTask={deleteTask}
                       changeFilter={changeFilter}
-                // test={test}
                       addTask={addTask}
             />
         </div>
