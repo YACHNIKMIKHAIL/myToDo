@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {FilterType, TaskType} from "./App";
-import {strict} from "assert";
+
 
 
 type TodolistPropsType = {
@@ -10,18 +10,18 @@ type TodolistPropsType = {
     changeFilter: (filter: FilterType) => void
     addTask: (title: string) => void
     filter: FilterType
+    changeTaskStatus: (id: string, isDone: boolean) => void
 }
 
-export function Todolist({addTask, changeFilter, deleteTask, ...props}: TodolistPropsType) {
+export function Todolist({addTask, changeFilter, deleteTask, changeTaskStatus, ...props}: TodolistPropsType) {
     let [title, setTitle] = useState<string>('')
     let [error, setError] = useState<boolean>(false)
 
-    const errorMessage=error?<div style={{color:'lightskyblue'}}>текст в инпут дай!</div>:''
+    const errorMessage = error ? <div style={{color: 'lightskyblue'}}>текст в инпут дай!</div> : ''
 
     const addTaskHandler = () => {
-        const trimmedTitle = title.trim()
-        if (trimmedTitle) {
-            addTask(trimmedTitle)
+        if (title.trim()!=='') {
+            addTask(title)
         } else {
             setError(true)
         }
@@ -36,25 +36,26 @@ export function Todolist({addTask, changeFilter, deleteTask, ...props}: Todolist
     }
     const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            // addTask(title)
-            // setTitle('')
             addTaskHandler()
         }
     }
 
-    const allButtonActiveClass=props.filter === 'all' ? 'active-filter' : ''
-    const getButtonActiveClass=(value:FilterType)=>props.filter === value ? 'active-filter' : ''
+    const getButtonActiveClass = (value: FilterType) => props.filter === value ? 'active-filter' : ''
 
 
     const tasksMap = props.tasks.map((t) => {
         const onClickHandler = () => deleteTask(t.id)
         const getClasses = () => t.isDone ? 'is-done' : ''
+        const changeCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
+            changeTaskStatus(t.id, e.currentTarget.checked)
+        }
 
         return (
             <ul>
                 <li key={t.id} className={getClasses()}>
                     <input type="checkbox"
                            checked={t.isDone}
+                           onChange={changeCheckBox}
                     />
                     <span>{t.title}</span>
                     <button onClick={onClickHandler}>x</button>
