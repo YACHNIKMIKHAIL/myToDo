@@ -15,5 +15,9 @@
     background-color: lightskyblue;
 }
 .error{
-    border:4px lightskyblue solid;
+    border:4px mediumvioletred solid;
+}
+
+.error-message{
+    color: mediumvioletred;
 }

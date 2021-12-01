@@ -17,11 +17,9 @@ export function Todolist({addTask, changeFilter, deleteTask, changeTaskStatus, .
     let [title, setTitle] = useState<string>('')
     let [error, setError] = useState<boolean>(false)
 
-    const errorMessage = error ? <div style={{color: 'lightskyblue'}}>текст в инпут дай!</div> : ''
-
     const addTaskHandler = () => {
         if (title.trim()!=='') {
-            addTask(title)
+            addTask(title.trim())
         } else {
             setError(true)
         }
@@ -73,7 +71,7 @@ export function Todolist({addTask, changeFilter, deleteTask, changeTaskStatus, .
                        onChange={onChangeHandler}
                        onKeyPress={onKeyPressHandler}/>
                 <button onClick={addTaskHandler}>+</button>
-                {error && errorMessage}
+                {error && <div className={'error-message'}>Invalid task!</div>}
             </div>
             <div>{tasksMap}</div>
             <div>
