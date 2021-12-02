@@ -40,20 +40,21 @@ export function Todolist({addTask, changeFilter, deleteTask, changeTaskStatus, .
 
     const getButtonActiveClass = (value: FilterType) => props.filter === value ? 'active-filter' : ''
 
+    const changeCheckBox = (id: string, e: ChangeEvent<HTMLInputElement>) => {
+        changeTaskStatus(id, e.currentTarget.checked)
+    }
+
 
     const tasksMap = props.tasks.map((t) => {
         const onClickHandler = () => deleteTask(t.id)
         const getClasses = () => t.isDone ? 'is-done' : ''
-        const changeCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-            changeTaskStatus(t.id, e.currentTarget.checked)
-        }
 
         return (
             <ul>
                 <li key={t.id} className={getClasses()}>
                     <input type="checkbox"
                            checked={t.isDone}
-                           onChange={changeCheckBox}
+                           onChange={(e)=>changeCheckBox(t.id,e)}
                     />
                     <span>{t.title}</span>
                     <button onClick={onClickHandler}>x</button>
